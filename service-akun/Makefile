@@ -13,4 +13,5 @@ migrateup:
 migratedown:
 	migrate -path db/schema -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
 
+
 .PHONY: postgres createdb dropdb migrateup migratedown
