@@ -11,14 +11,14 @@ import (
 type Akun struct {
 	AkunID     int64     `json:"akun_id"`
 	NasabahID  int64     `json:"nasabah_id"`
-	NoRekening int64     `json:"no_rekening"`
+	NoRekening string    `json:"no_rekening"`
 	Saldo      int64     `json:"saldo"`
 	TglDibuat  time.Time `json:"tgl_dibuat"`
 }
 
 type Mutasi struct {
 	MutasiID      int64     `json:"mutasi_id"`
-	NoRekening    int64     `json:"no_rekening"`
+	NoRekening    string    `json:"no_rekening"`
 	KodeTransaksi string    `json:"kode_transaksi"`
 	Nominal       int64     `json:"nominal"`
 	Waktu         time.Time `json:"waktu"`

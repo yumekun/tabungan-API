@@ -15,7 +15,7 @@ WHERE no_rekening = $1
 ORDER BY waktu
 `
 
-func (q *Queries) GetMutasi(ctx context.Context, noRekening int64) ([]Mutasi, error) {
+func (q *Queries) GetMutasi(ctx context.Context, noRekening string) ([]Mutasi, error) {
 	rows, err := q.db.QueryContext(ctx, getMutasi, noRekening)
 	if err != nil {
 		return nil, err

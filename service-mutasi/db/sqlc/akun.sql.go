@@ -17,8 +17,8 @@ RETURNING akun_id, nasabah_id, no_rekening, saldo, tgl_dibuat
 `
 
 type UpdateSaldoParams struct {
-	NoRekening int64 `json:"no_rekening"`
-	Saldo      int64 `json:"saldo"`
+	NoRekening string `json:"no_rekening"`
+	Saldo      int64  `json:"saldo"`
 }
 
 func (q *Queries) UpdateSaldo(ctx context.Context, arg UpdateSaldoParams) (Akun, error) {

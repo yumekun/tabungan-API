@@ -9,14 +9,14 @@ CREATE TABLE "nasabah" (
 CREATE TABLE "akun" (
   "akun_id" bigserial PRIMARY KEY,
   "nasabah_id" bigserial NOT NULL,
-  "no_rekening" bigint UNIQUE NOT NULL,
+  "no_rekening" varchar UNIQUE NOT NULL,
   "saldo" bigint NOT NULL,
   "tgl_dibuat" timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "mutasi" (
   "mutasi_id" bigserial PRIMARY KEY,
-  "no_rekening" bigint UNIQUE NOT NULL,
+  "no_rekening" varchar UNIQUE NOT NULL,
   "kode_transaksi" varchar NOT NULL,
   "nominal" bigint NOT NULL,
   "waktu" timestamptz NOT NULL DEFAULT (now())

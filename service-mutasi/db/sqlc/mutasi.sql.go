@@ -22,7 +22,7 @@ INSERT INTO mutasi (
 type CreateMutasiParams struct {
 	KodeTransaksi string `json:"kode_transaksi"`
 	Nominal       int64  `json:"nominal"`
-	NoRekening    int64  `json:"no_rekening"`
+	NoRekening    string `json:"no_rekening"`
 }
 
 func (q *Queries) CreateMutasi(ctx context.Context, arg CreateMutasiParams) (Mutasi, error) {

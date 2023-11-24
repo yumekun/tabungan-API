@@ -20,8 +20,8 @@ INSERT INTO akun (
 `
 
 type CreateAkunParams struct {
-	NasabahID  int64 `json:"nasabah_id"`
-	NoRekening int64 `json:"no_rekening"`
+	NasabahID  int64  `json:"nasabah_id"`
+	NoRekening string `json:"no_rekening"`
 }
 
 func (q *Queries) CreateAkun(ctx context.Context, arg CreateAkunParams) (Akun, error) {
@@ -42,7 +42,7 @@ SELECT akun_id, nasabah_id, no_rekening, saldo, tgl_dibuat FROM akun
 WHERE no_rekening = $1
 `
 
-func (q *Queries) GetAkun(ctx context.Context, noRekening int64) (Akun, error) {
+func (q *Queries) GetAkun(ctx context.Context, noRekening string) (Akun, error) {
 	row := q.db.QueryRowContext(ctx, getAkun, noRekening)
 	var i Akun
 	err := row.Scan(
