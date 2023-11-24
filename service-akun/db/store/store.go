@@ -8,7 +8,8 @@ import (
 type IStore interface {
 	sqlc.Querier
 	DaftarTx(ctx context.Context, arg DaftarTxParams) (DaftarTxResult, error)
-
+	SaldoTx(ctx context.Context,arg SaldoTxParams) (SaldoTxResult,error)
+	MutasiTx(ctx context.Context,arg MutasiTxParams) (MutasiTxResult,error)
 }
 type DaftarTxParams struct {
 	Nama string `json:"nama"`
@@ -21,3 +22,18 @@ type DaftarTxResult struct {
 	Nasabah sqlc.Nasabah `json:"nasabah"`
 }
 
+type SaldoTxParams struct {
+	NoRekening string `json:"no_rekening"`
+}
+
+type SaldoTxResult struct {
+	Akun  sqlc.Akun  `json:"akun"`
+}
+
+type MutasiTxParams struct {
+	NoRekening string `json:"no_rekening"`
+}
+
+type MutasiTxResult struct {
+	Mutasi  []sqlc.Mutasi  `json:"mutasi"`
+}

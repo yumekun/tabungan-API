@@ -17,7 +17,6 @@ func (store *PostgresStore) DaftarTx(ctx context.Context, arg db.DaftarTxParams)
 	err := store.execTx(ctx, func(q *sqlc.Queries) error {
 		var err error
 
-		// create customers
 		result.Nasabah, err = q.CreateNasabah(ctx, sqlc.CreateNasabahParams{
 			Nama: arg.Nama,
 			Nik:  arg.Nik,
@@ -28,7 +27,6 @@ func (store *PostgresStore) DaftarTx(ctx context.Context, arg db.DaftarTxParams)
 			return err
 		}
 
-		// create account
 		result.Akun, err = q.CreateAkun(ctx, sqlc.CreateAkunParams{
 			NasabahID: result.Nasabah.NasabahID,
 			NoRekening: random.GenerateNumericString(16),
