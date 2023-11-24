@@ -5,8 +5,8 @@ import (
 	"database/sql"
 	"fmt"
 
-	"service-akun/db/sqlc"
-	db "service-akun/db/store"
+	"service-mutasi/db/sqlc"
+	db "service-mutasi/db/store"
 )
 
 type PostgresStore struct {
@@ -20,7 +20,6 @@ func NewPostgresStore( db *sql.DB) db.IStore {
 		Queries: sqlc.New(db),
 	}
 }
-
 func (store *PostgresStore) execTx(ctx context.Context, fn func(*sqlc.Queries) error) error {
 
 	tx, err := store.db.BeginTx(ctx, nil)

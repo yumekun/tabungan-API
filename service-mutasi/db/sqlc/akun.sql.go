@@ -9,6 +9,24 @@ import (
 	"context"
 )
 
+const getAkun = `-- name: GetAkun :one
+SELECT akun_id, nasabah_id, no_rekening, saldo, tgl_dibuat FROM akun
+WHERE no_rekening = $1
+`
+
+func (q *Queries) GetAkun(ctx context.Context, noRekening string) (Akun, error) {
+	row := q.db.QueryRowContext(ctx, getAkun, noRekening)
+	var i Akun
+	err := row.Scan(
+		&i.AkunID,
+		&i.NasabahID,
+		&i.NoRekening,
+		&i.Saldo,
+		&i.TglDibuat,
+	)
+	return i, err
+}
+
 const updateSaldo = `-- name: UpdateSaldo :one
 UPDATE akun
 SET saldo = $2

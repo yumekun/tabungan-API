@@ -10,6 +10,7 @@ import (
 
 type Querier interface {
 	CreateMutasi(ctx context.Context, arg CreateMutasiParams) (Mutasi, error)
+	GetAkun(ctx context.Context, noRekening string) (Akun, error)
 	UpdateSaldo(ctx context.Context, arg UpdateSaldoParams) (Akun, error)
 }
 

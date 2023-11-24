@@ -6,13 +6,11 @@ import (
 
 	"service-akun/db/sqlc"
 	db "service-akun/db/store"
-	"service-akun/util/errs"
 	"service-akun/util/random"
 )
 
 
 func (store *PostgresStore) DaftarTx(ctx context.Context, arg db.DaftarTxParams) (db.DaftarTxResult, error) {
-	const op errs.Op = "postgres_store/DaftarTx"
 
 	var result db.DaftarTxResult
 

@@ -28,25 +28,7 @@ func generateString(characters string, length int) string {
 	return result
 }
 
-func GenerateAlphabetString(length int) string {
-	return generateString(alphabetChars, length)
-}
 
-func GenerateAlphanumericString(length int) string {
-	return generateString(allChars, length)
-}
-
-func GenerateBool() bool {
-	return r.Float32() < 0.5
-}
-
-func GenerateFromSet(array []interface{}) interface{} {
-	return array[r.Intn(len(array))]
-}
-
-func GenerateNumber(min, max int) int {
-	return r.Intn(max-min+1) + min
-}
 func GenerateNumericString(length int) string {
 	return generateString(numericChars, length)
 }
