@@ -4,11 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-
+	"os"
+	"os/signal"
 	"service-mutasi/redis_consumer"
 	"service-mutasi/store/postgres_store/store/postgres_store"
 	"service-mutasi/store/redis_store"
 	util "service-mutasi/util/config"
+	"syscall"
 
 	"github.com/go-redis/redis/v8"
 	_ "github.com/lib/pq"
@@ -47,4 +49,13 @@ func main() {
 
 	go redisConsumerTabung.Run(context.Background())
 	go redisConsumerTarik.Run(context.Background())
+
+	errs := make(chan error)
+	go func() {
+		c := make(chan os.Signal, 1)
+		signal.Notify(c, syscall.SIGINT, syscall.SIGTERM, syscall.SIGALRM)
+		errs <- fmt.Errorf("%s", <-c)
+	}()
+
+	fmt.Println("exit", <-errs)
 }
