@@ -12,6 +12,8 @@ type Config struct {
 	DBSource string `mapstructure:"DB_SOURCE"`
 	RedisServiceAddress string `mapstructure:"REDIS_SERVICE_ADDRESS"`
 	RedisPassword string `mapstructure:"REDIS_PASSWORD"` 
+	RedisStreamRequestTabung string `mapstructure:"REDISSTREAMTABUNG"`
+	RedisStreamRequestTarik string `mapstructure:"REDISSTREAMTARIK"`
 }
 
 func LoadConfig(path string) (config Config, err error) {

@@ -45,7 +45,7 @@ func main() {
 	postgresStore := postgres_store.NewPostgresStore(conn)
 	redisStore  := redis_store.NewRedisStore(redisClient)
 
-	service := service.NewService(postgresStore,redisStore)
+	service := service.NewService(config,postgresStore,redisStore)
 
 	handler := handler.NewHandler(service)
 
@@ -63,6 +63,8 @@ func main() {
 	})
 
 	app.Post("/daftar", handler.Daftar)
+	app.Post("/tarik", handler.Tarik)
+	app.Post("/tabung", handler.Tabung)
 	app.Get("/saldo/:no_rekening", handler.Saldo)
 	app.Get("/mutasi/:no_rekening", handler.Mutasi)
 
