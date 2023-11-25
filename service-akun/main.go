@@ -1,14 +1,17 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 
 	"service-akun/handler"
 	"service-akun/service"
 	"service-akun/store/postgres_store/store/postgres_store"
+	"service-akun/store/redis_store"
 	util "service-akun/util/config"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	_ "github.com/lib/pq"
@@ -26,10 +29,23 @@ func main() {
 		return
 	}
 
+	redisClient := redis.NewClient(&redis.Options{
+		Addr:     config.RedisServiceAddress,
+		Password: config.RedisPassword,
+		DB:       0,
+	})
 
-	store := postgres_store.NewPostgresStore(conn)
+	// ping redis
+	_, err = redisClient.Ping(context.Background()).Result()
+	if err != nil {
+		fmt.Printf("cannot connect to redis: %s", err)
 
-	service := service.NewService(store)
+		return
+	}
+	postgresStore := postgres_store.NewPostgresStore(conn)
+	redisStore  := redis_store.NewRedisStore(redisClient)
+
+	service := service.NewService(postgresStore,redisStore)
 
 	handler := handler.NewHandler(service)
 

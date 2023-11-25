@@ -10,6 +10,8 @@ type Config struct {
 	Port string `mapstructure:"PORT"`
 	DBDriver string `mapstructure:"DB_DRIVER"`
 	DBSource string `mapstructure:"DB_SOURCE"`
+	RedisServiceAddress string `mapstructure:"REDIS_SERVICE_ADDRESS"`
+	RedisPassword string `mapstructure:"REDIS_PASSWORD"` 
 }
 
 func LoadConfig(path string) (config Config, err error) {
