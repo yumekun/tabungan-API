@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strconv"
 
 	"service-mutasi/dto"
 )
@@ -37,9 +38,15 @@ func (consumer *RedisConsumer) consume(ctx context.Context) error {
 				{
 					request := &dto.TabungRequest{}
 
-					nominal, ok := values["nominal"].(int64)
+					nominalString, ok := values["nominal"].(string)
 					if !ok {
 						fmt.Printf("error assert nominal, got type %T", values["nominal"])
+
+						return errors.New("error assert nominal")
+					}
+					nominal, err := strconv.ParseInt(nominalString, 10, 64)
+					if err != nil {
+						fmt.Println("error converting string to int64:", err)
 
 						return errors.New("error assert nominal")
 					}
@@ -53,7 +60,7 @@ func (consumer *RedisConsumer) consume(ctx context.Context) error {
 					}
 					request.NoRekening = noRekening
 
-					_, err := consumer.service.Tabung(ctx, *request)
+					_, err = consumer.service.Tabung(ctx, *request)
 					if err != nil {
 						fmt.Printf("error: %s", err)
 					}
@@ -62,9 +69,15 @@ func (consumer *RedisConsumer) consume(ctx context.Context) error {
 				{
 					request := &dto.TarikRequest{}
 
-					nominal, ok := values["nominal"].(int64)
+					nominalString, ok := values["nominal"].(string)
 					if !ok {
 						fmt.Printf("error assert nominal, got type %T", values["nominal"])
+
+						return errors.New("error assert nominal")
+					}
+					nominal, err := strconv.ParseInt(nominalString, 10, 64)
+					if err != nil {
+						fmt.Println("error converting string to int64:", err)
 
 						return errors.New("error assert nominal")
 					}
@@ -78,7 +91,7 @@ func (consumer *RedisConsumer) consume(ctx context.Context) error {
 					}
 					request.NoRekening = noRekening
 
-					_, err := consumer.service.Tarik(ctx, *request)
+					_, err = consumer.service.Tarik(ctx, *request)
 					if err != nil {
 						fmt.Printf("error: %s", err)
 					}

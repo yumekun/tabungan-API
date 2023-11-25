@@ -34,7 +34,7 @@ services:
       - HOST=0.0.0.0
       - PORT=3000
       - DB_DRIVER=postgres
-      - DB_SOURCE=postgresql://root:secret@localhost:5432/tabungan_api?sslmode=disable
+      - DB_SOURCE=postgresql://root:secret@postgres:5432/tabungan_api?sslmode=disable
       - REDIS_SERVICE_ADDRESS=redis:6379
       - REDIS_PASSWORD=
       - REDIS_STREAM_REQUEST_TABUNG=redis_stream_request_tabung
@@ -52,7 +52,7 @@ services:
     restart: unless-stopped
     environment:
       - DB_DRIVER=postgres
-      - DB_SOURCE=postgresql://root:secret@localhost:5432/tabungan_api?sslmode=disable
+      - DB_SOURCE=postgresql://root:secret@postgres:5432/tabungan_api?sslmode=disable
       - REDIS_SERVICE_ADDRESS=redis:6379
       - REDIS_PASSWORD=
       - REDIS_STREAM_REQUEST_TABUNG=redis_stream_request_tabung
