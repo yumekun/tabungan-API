@@ -16,7 +16,7 @@ CREATE TABLE "akun" (
 
 CREATE TABLE "mutasi" (
   "mutasi_id" bigserial PRIMARY KEY,
-  "no_rekening" varchar UNIQUE NOT NULL,
+  "no_rekening" varchar NOT NULL,
   "kode_transaksi" varchar NOT NULL,
   "nominal" bigint NOT NULL,
   "waktu" timestamptz NOT NULL DEFAULT (now())
