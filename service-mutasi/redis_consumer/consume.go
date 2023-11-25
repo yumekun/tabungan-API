@@ -11,9 +11,9 @@ import (
 
 // Consume consumes stream data sent to redis stream
 func (consumer *RedisConsumer) consume(ctx context.Context) error {
-	streams, err := consumer.store.redis.GetStreams(ctx, consumer.streamName, 1)
+	streams, err := consumer.store.redis.GetStreams(ctx, consumer.config.RedisStreamRequest, 1)
 	if err != nil {
-		fmt.Printf("failed to get stream (%s): %s\n", consumer.streamName, err)
+		fmt.Printf("failed to get stream (%s): %s\n", consumer.config.RedisStreamRequest, err)
 
 		return err
 	}
@@ -24,7 +24,7 @@ func (consumer *RedisConsumer) consume(ctx context.Context) error {
 
 			values := message.Values
 
-			err = consumer.store.redis.DeleteFromStream(ctx, consumer.streamName, message.ID)
+			err = consumer.store.redis.DeleteFromStream(ctx, consumer.config.RedisStreamRequest, message.ID)
 			if err != nil {
 				fmt.Printf("failed to delete message stream (%s): %s\n", message.ID, err)
 
@@ -33,8 +33,13 @@ func (consumer *RedisConsumer) consume(ctx context.Context) error {
 
 			fmt.Printf("values: %+v\n", values)
 
-			switch consumer.streamName {
-			case consumer.config.RedisStreamRequestTabung:
+			reqType, ok := values["req_type"].(string)
+			if !ok {
+				fmt.Printf("error assert req_type got type %T", values["req_type"])
+			}
+
+			switch reqType {
+			case "tabung":
 				{
 					request := &dto.TabungRequest{}
 
@@ -54,9 +59,9 @@ func (consumer *RedisConsumer) consume(ctx context.Context) error {
 
 					noRekening, ok := values["no_rekening"].(string)
 					if !ok {
-						fmt.Printf("error assert no_rekening")
-
 						fmt.Printf("error assert no_rekening got type %T", values["no_rekening"])
+
+						return errors.New("error assert no_rekening")
 					}
 					request.NoRekening = noRekening
 
@@ -65,7 +70,7 @@ func (consumer *RedisConsumer) consume(ctx context.Context) error {
 						fmt.Printf("error: %s", err)
 					}
 				}
-			case consumer.config.RedisStreamRequestTarik:
+			case "tarik":
 				{
 					request := &dto.TarikRequest{}
 
@@ -98,7 +103,7 @@ func (consumer *RedisConsumer) consume(ctx context.Context) error {
 				}
 			default:
 				{
-					fmt.Printf("unknown stream name: %s", consumer.streamName)
+					fmt.Printf("unknown req type: %s", reqType)
 				}
 			}
 		}

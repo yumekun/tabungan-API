@@ -13,7 +13,8 @@ func (service *Service) Tarik(ctx context.Context, request dto.TarikRequest) (sa
 		return -1, err
 	}
 
-	err = service.store.redis.AddToStream(ctx, service.config.RedisStreamRequestTarik, map[string]interface{}{
+	err = service.store.redis.AddToStream(ctx, service.config.RedisStreamRequest, map[string]interface{}{
+		"req_type":    "tarik",
 		"no_rekening": request.NoRekening,
 		"nominal":     request.Nominal,
 	})

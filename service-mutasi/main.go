@@ -44,11 +44,9 @@ func main() {
 	postgresStore := postgres_store.NewPostgresStore(conn)
 	redisStore := redis_store.NewRedisStore(redisClient)
 
-	redisConsumerTabung := redis_consumer.NewRedisConsumer(config, config.RedisStreamRequestTabung, postgresStore, redisStore)
-	redisConsumerTarik := redis_consumer.NewRedisConsumer(config, config.RedisStreamRequestTarik, postgresStore, redisStore)
+	redisConsumer := redis_consumer.NewRedisConsumer(config, postgresStore, redisStore)
 
-	go redisConsumerTabung.Run(context.Background())
-	go redisConsumerTarik.Run(context.Background())
+	go redisConsumer.Run(context.Background())
 
 	errs := make(chan error)
 	go func() {

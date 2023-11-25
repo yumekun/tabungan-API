@@ -6,13 +6,11 @@ import (
 
 
 type Config struct {
-
 	DBDriver string `mapstructure:"DB_DRIVER"`
 	DBSource string `mapstructure:"DB_SOURCE"`
 	RedisServiceAddress string `mapstructure:"REDIS_SERVICE_ADDRESS"`
 	RedisPassword string `mapstructure:"REDIS_PASSWORD"` 
-	RedisStreamRequestTabung string `mapstructure:"REDISSTREAMTABUNG"`
-	RedisStreamRequestTarik string `mapstructure:"REDISSTREAMTARIK"`
+	RedisStreamRequest string `mapstructure:"REDIS_STREAM_REQUEST"`
 }
 
 func LoadConfig(path string) (config Config, err error) {

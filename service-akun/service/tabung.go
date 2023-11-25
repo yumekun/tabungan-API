@@ -13,7 +13,8 @@ func (service *Service) Tabung(ctx context.Context, request dto.TabungRequest) (
 		return -1, err
 	}
 
-	err = service.store.redis.AddToStream(ctx, service.config.RedisStreamRequestTabung, map[string]interface{}{
+	err = service.store.redis.AddToStream(ctx, service.config.RedisStreamRequest, map[string]interface{}{
+		"req_type":    "tabung",
 		"no_rekening": request.NoRekening,
 		"nominal":     request.Nominal,
 	})

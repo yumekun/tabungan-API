@@ -19,18 +19,16 @@ func newStore(redisStore *redis_store.RedisStore) store {
 
 type RedisConsumer struct {
 	config  util.Config
-	streamName string
 	service service.IService
 	store   store
 }
 
-func NewRedisConsumer(config util.Config,streamName string,postgresStore db.IStore, redisStore *redis_store.RedisStore) *RedisConsumer {
+func NewRedisConsumer(config util.Config, postgresStore db.IStore, redisStore *redis_store.RedisStore) *RedisConsumer {
 	service := service.NewService(postgresStore)
 	store := newStore(redisStore)
 
 	return &RedisConsumer{
 		config:  config,
-		streamName: streamName,
 		service: service,
 		store:   store,
 	}

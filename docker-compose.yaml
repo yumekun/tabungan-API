@@ -37,8 +37,7 @@ services:
       - DB_SOURCE=postgresql://root:secret@postgres:5432/tabungan_api?sslmode=disable
       - REDIS_SERVICE_ADDRESS=redis:6379
       - REDIS_PASSWORD=
-      - REDIS_STREAM_REQUEST_TABUNG=redis_stream_request_tabung
-      - REDIS_STREAM_REQUEST_TARIK=redis_stream_request_tarik
+      - REDIS_STREAM_REQUEST=redis_stream_request
     depends_on:
       - postgres
       - redis
@@ -55,8 +54,7 @@ services:
       - DB_SOURCE=postgresql://root:secret@postgres:5432/tabungan_api?sslmode=disable
       - REDIS_SERVICE_ADDRESS=redis:6379
       - REDIS_PASSWORD=
-      - REDIS_STREAM_REQUEST_TABUNG=redis_stream_request_tabung
-      - REDIS_STREAM_REQUEST_TARIK=redis_stream_request_tarik
+      - REDIS_STREAM_REQUEST=redis_stream_request
     depends_on:
       - postgres
       - redis
