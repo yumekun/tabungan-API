@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	"service-akun/db/sqlc"
 	"service-akun/dto"
+	"service-akun/store/postgres_store/sqlc"
 )
 
 func (service *Service) Mutasi(ctx context.Context, request dto.MutasiRequest) (entries []sqlc.Mutasi, err error) {

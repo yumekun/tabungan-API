@@ -3,7 +3,7 @@ package db
 import (
 	"context"
 
-	"service-akun/db/sqlc"
+	"service-akun/store/postgres_store/sqlc"
 )
 type IStore interface {
 	sqlc.Querier

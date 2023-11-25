@@ -4,9 +4,9 @@ import (
 	"context"
 	"database/sql"
 
-	"service-akun/db/sqlc"
 	"service-akun/dto"
 	"service-akun/model"
+	"service-akun/store/postgres_store/sqlc"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -36,13 +36,13 @@ func (handler *Handler) Mutasi(c *fiber.Ctx) error {
 		Mutasi: func(entries []sqlc.Mutasi) []model.Statement {
 			mutasi := []model.Statement{}
 
-			// for _, mutasi := range entries {
-			// 	mutasi = append(mutasi, model.Statement{
-			// 		KodeTransaksi: mutasi.KodeTransaksi,
-			// 		Nominal:       mutasi.Nominal,
-			// 		Waktu:         mutasi.Waktu,
-			// 	})
-			// }
+			for _, entry := range entries {
+				mutasi = append(mutasi, model.Statement{
+					KodeTransaksi: entry.KodeTransaksi,
+					Nominal:       entry.Nominal,
+					Waktu:         entry.Waktu,
+				})
+			}
 
 			return mutasi
 		}(entries),

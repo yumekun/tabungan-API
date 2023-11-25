@@ -3,9 +3,9 @@ package service
 import (
 	"context"
 
-	"service-akun/db/sqlc"
-	db "service-akun/db/store"
 	"service-akun/dto"
+	"service-akun/store/postgres_store/sqlc"
+	db "service-akun/store/postgres_store/store"
 )
 
 type IService interface {

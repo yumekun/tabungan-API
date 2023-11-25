@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"fmt"
 
-	"service-akun/db/store/postgres_store"
 	"service-akun/handler"
 	"service-akun/service"
+	"service-akun/store/postgres_store/store/postgres_store"
 	util "service-akun/util/config"
 
 	"github.com/gofiber/fiber/v2"

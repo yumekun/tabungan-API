@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	db "service-akun/db/store"
 	"service-akun/dto"
+	db "service-akun/store/postgres_store/store"
 )
 
 func (service *Service) Daftar(ctx context.Context, request dto.DaftarRequest) (noRekening string, err error) {
